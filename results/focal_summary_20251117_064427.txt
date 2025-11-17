@@ -1,0 +1,37 @@
+FOCAL LOSS EXPERIMENT RESULTS
+================================================================================
+
+
+GRAPHSAGE:
+--------------------------------------------------------------------------------
+                experiment loss_type       f1  precision   recall  auc_roc
+graphsage_engineered_focal     Focal 0.555039   0.755274 0.438725 0.837602
+  graphsage_baseline_focal     Focal 0.540902   0.848168 0.397059 0.833747
+     graphsage_baseline_ce        CE 0.536256   0.859459 0.389706 0.834104
+   graphsage_engineered_ce        CE 0.509532   0.869822 0.360294 0.809164
+
+
+GCN:
+--------------------------------------------------------------------------------
+          experiment loss_type       f1  precision   recall  auc_roc
+gcn_engineered_focal     Focal 0.473239   0.556291 0.411765 0.838030
+   gcn_engineered_ce        CE 0.465116   0.632911 0.367647 0.846528
+
+
+GAT:
+--------------------------------------------------------------------------------
+          experiment loss_type       f1  precision   recall  auc_roc
+gat_engineered_focal     Focal 0.436314   0.487879 0.394608 0.809655
+   gat_engineered_ce        CE 0.377953   0.406780 0.352941 0.797907
+     gat_baseline_ce        CE 0.372159   0.442568 0.321078 0.810462
+  gat_baseline_focal     Focal 0.317912   0.308046 0.328431 0.784968
+
+
+TOP 5 PERFORMERS:
+================================================================================
+                experiment     model loss_type       f1  precision   recall  auc_roc
+graphsage_engineered_focal graphsage     Focal 0.555039   0.755274 0.438725 0.837602
+  graphsage_baseline_focal graphsage     Focal 0.540902   0.848168 0.397059 0.833747
+     graphsage_baseline_ce graphsage        CE 0.536256   0.859459 0.389706 0.834104
+   graphsage_engineered_ce graphsage        CE 0.509532   0.869822 0.360294 0.809164
+      gcn_engineered_focal       gcn     Focal 0.473239   0.556291 0.411765 0.838030
