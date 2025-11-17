@@ -60,22 +60,23 @@ best model: baseline_noweight xgboost (f1=0.612)
 ### graphsage
 | dataset | loss | f1 | precision | recall | auc-roc |
 |---------|------|-----|-----------|--------|---------|
-| augmented | focal | **0.555** | 0.755 | 0.439 | 0.838 |
-| baseline | focal | 0.541 | 0.848 | 0.397 | 0.834 |
 | baseline | ce | 0.536 | 0.860 | 0.390 | 0.834 |
+| augmented | focal | **0.512** | 0.756 | 0.387 | 0.811 |
 | augmented | ce | 0.510 | 0.870 | 0.360 | 0.809 |
+| baseline | focal | 0.425 | 0.884 | 0.279 | 0.830 |
 
 ### gcn
 | dataset | loss | f1 | precision | recall | auc-roc |
 |---------|------|-----|-----------|--------|---------|
-| augmented | focal | 0.473 | 0.556 | 0.412 | 0.838 |
+| augmented | focal | 0.468 | 0.570 | 0.397 | 0.855 |
 | augmented | ce | 0.465 | 0.633 | 0.368 | 0.847 |
+| baseline | focal | 0.354 | 0.891 | 0.221 | 0.820 |
 | baseline | ce | 0.342 | 0.795 | 0.218 | 0.824 |
 
 ### gat
 | dataset | loss | f1 | precision | recall | auc-roc |
 |---------|------|-----|-----------|--------|---------|
-| augmented | focal | 0.436 | 0.488 | 0.395 | 0.810 |
 | augmented | ce | 0.378 | 0.407 | 0.353 | 0.798 |
 | baseline | ce | 0.372 | 0.443 | 0.321 | 0.810 |
-| baseline | focal | 0.318 | 0.308 | 0.328 | 0.785 |
+| augmented | focal | 0.335 | 0.313 | 0.360 | 0.811 |
+| baseline | focal | 0.314 | 0.380 | 0.267 | 0.795 |

@@ -175,6 +175,7 @@ def main():
         ('gat', True, True, alpha_weight, 'gat_engineered_focal'),
 
         # GCN
+        ('gcn', False, True, alpha_weight, 'gcn_baseline_focal'),
         ('gcn', True, True, alpha_weight, 'gcn_engineered_focal'),
     ]
 
