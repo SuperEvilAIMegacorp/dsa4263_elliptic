@@ -164,26 +164,17 @@ def main():
     alpha_weight = class_weight_pos / (class_weight_pos + class_weight_neg)
     print(f"Alpha (normalized class weight): {alpha_weight:.4f}\n")
 
-    # Experiment matrix
+    # Experiment matrix - focal loss only (CE baselines in run_full_experiments.py)
     experiments = [
-        # GraphSAGE baseline - current best GNN
-        ('graphsage', False, False, alpha_weight, 'graphsage_baseline_ce'),
+        # GraphSAGE
         ('graphsage', False, True, alpha_weight, 'graphsage_baseline_focal'),
-
-        # GraphSAGE engineered
-        ('graphsage', True, False, alpha_weight, 'graphsage_engineered_ce'),
         ('graphsage', True, True, alpha_weight, 'graphsage_engineered_focal'),
 
-        # GAT baseline - worst performer
-        ('gat', False, False, alpha_weight, 'gat_baseline_ce'),
+        # GAT
         ('gat', False, True, alpha_weight, 'gat_baseline_focal'),
-
-        # GAT engineered
-        ('gat', True, False, alpha_weight, 'gat_engineered_ce'),
         ('gat', True, True, alpha_weight, 'gat_engineered_focal'),
 
-        # GCN engineered
-        ('gcn', True, False, alpha_weight, 'gcn_engineered_ce'),
+        # GCN
         ('gcn', True, True, alpha_weight, 'gcn_engineered_focal'),
     ]
 
@@ -255,9 +246,9 @@ def main():
         df_results.to_csv(csv_path, index=False)
         print(f"Saved detailed results to {csv_path}")
 
-        # Print comparisons by model
+        # Print results by model
         print("\n" + "=" * 80)
-        print("FOCAL LOSS vs CROSS ENTROPY COMPARISON")
+        print("FOCAL LOSS RESULTS")
         print("=" * 80)
 
         for model in df_results['model'].unique():
@@ -265,27 +256,15 @@ def main():
             print(f"\n{model.upper()}:")
             print("-" * 80)
 
-            comparison_cols = ['experiment', 'loss_type', 'f1', 'precision', 'recall', 'auc_roc']
-            print(model_results[comparison_cols].to_string(index=False))
-
-            # Calculate improvement
-            focal = model_results[model_results['loss_type'] == 'Focal']
-            ce = model_results[model_results['loss_type'] == 'CE']
-
-            if len(focal) > 0 and len(ce) > 0:
-                avg_f1_focal = focal['f1'].mean()
-                avg_f1_ce = ce['f1'].mean()
-                improvement = ((avg_f1_focal - avg_f1_ce) / avg_f1_ce) * 100 if avg_f1_ce > 0 else 0
-
-                print(f"\nAverage F1 - CE: {avg_f1_ce:.4f}, Focal: {avg_f1_focal:.4f}")
-                print(f"Improvement: {improvement:+.2f}%")
+            result_cols = ['experiment', 'features', 'f1', 'precision', 'recall', 'auc_roc']
+            print(model_results[result_cols].to_string(index=False))
 
         # Top performers
         print("\n" + "=" * 80)
-        print("TOP 5 PERFORMERS")
+        print("TOP RESULTS")
         print("=" * 80)
-        top_cols = ['experiment', 'model', 'loss_type', 'f1', 'precision', 'recall', 'auc_roc']
-        print(df_results.head(5)[top_cols].to_string(index=False))
+        top_cols = ['experiment', 'model', 'features', 'f1', 'precision', 'recall', 'auc_roc']
+        print(df_results.head()[top_cols].to_string(index=False))
 
         # Save summary
         with open(f'results/focal_summary_{timestamp}.txt', 'w') as f:
@@ -296,12 +275,12 @@ def main():
                 model_results = df_results[df_results['model'] == model]
                 f.write(f"\n{model.upper()}:\n")
                 f.write("-" * 80 + "\n")
-                f.write(model_results[comparison_cols].to_string(index=False))
+                f.write(model_results[result_cols].to_string(index=False))
                 f.write("\n\n")
 
-            f.write("\nTOP 5 PERFORMERS:\n")
+            f.write("\nTOP RESULTS:\n")
             f.write("=" * 80 + "\n")
-            f.write(df_results.head(5)[top_cols].to_string(index=False))
+            f.write(df_results.head()[top_cols].to_string(index=False))
             f.write("\n")
 
         print(f"\nSaved summary to results/focal_summary_{timestamp}.txt")
